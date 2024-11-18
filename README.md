@@ -46,12 +46,12 @@ Place the whole slide image in ./DATA
 
 For cytology smear dataset, run in terminal:
 ```
-python create_patches.py --source DATA --save_dir DATA_PATCHES --patch_size 256 --preset cyto.csv --seg --patch --stitch
+python create_patches.py --source DATA --save_dir DATA_PATCHES --patch_size 224 --preset cyto.csv --seg --patch --stitch
 
 ```
 For cell block dataset, run in terminal:
 ```
-python create_patches.py --source DATA --save_dir DATA_PATCHES --patch_size 256 --preset cellblock.csv --seg --patch --stitch
+python create_patches.py --source DATA --save_dir DATA_PATCHES --patch_size 224 --preset cellblock.csv --seg --patch --stitch
 
 ```
 
@@ -85,12 +85,9 @@ Request access to the UNI model weights from the Huggingface model page at: <htt
 
 In the terminal run:
 ```
-export UNI_CKPT_PATH=xxxx/pytorch_model.bin
-
 CUDA_VISIBLE_DEVICES=0,1 python extract_features.py --data_h5_dir DATA_PATCHES --data_slide_dir DATA --csv_path DATA_PATCHES/process_list_autogen.csv --feat_dir DATA_FEATURES --batch_size 512 --slide_ext .ndpi
 
 ```
-
 example features results:
 ```
 DATA_FEATURES/
@@ -106,7 +103,11 @@ DATA_FEATURES/
     │       ⋮
     └── slide_n.pt
 ```
+Add data augmentation:
+```
+CUDA_VISIBLE_DEVICES=0,1 python extract_features.py --data_h5_dir DATA_PATCHES --data_slide_dir DATA --csv_path DATA_PATCHES/process_list_autogen.csv --feat_dir DATA_FEATURES --batch_size 512 --slide_ext .ndpi --data_augmentation
 
+```
 #### 3. Training and Testing List
 Prepare the training, validation  and the testing list containing the labels of the files and put it into ./dataset_csv folder. (The csv sample "fold0.csv" is provided)
 
