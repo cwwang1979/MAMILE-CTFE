@@ -109,82 +109,86 @@ CUDA_VISIBLE_DEVICES=0,1 python extract_features.py --data_h5_dir DATA_PATCHES -
 
 ```
 #### 3. Training and Testing List
-Prepare the training, validation  and the testing list containing the labels of the files and put it into ./dataset_csv folder. (The csv sample "fold0.csv" is provided)
+Prepare the training, validation  and the testing list containing the labels of the files and put it into ./LIST folder. (The csv sample "DATA_train.csv" and  "DATA_test.csv")
 
 example of the csv files:
-|      | train          | train_label     | val        | val_label | test        | test_label |  
-| :--- | :---           |  :---           | :---:      |:---:      | :---:      |:---:      | 
-|  0   | train_slide_1        | 1               | val_slide_1    |   0       | test_slide_1    |   0       | 
-|  1   | train_slide_2        | 0               | val_slide_2    |   1       | test_slide_2    |   0       |
-|  ... | ...            | ...             | ...        | ...       | ...        | ...       |
-|  n-1   | train_slide_n        | 1               |     |          |    |          |
+| slide_id    | case_id  | label |
+| :---          | :---           |  :---    |
+| slide_1  |slide_1 |  pos      |
+| slide_2  | slide_2  | neg      |
+|  ...            | ...            | ...        | 
+| slide_n  |slide_n   | pos        |   
 
 
 
 #### 4. Inference 
+For inference, open the "inference.py" and set the number of the classes, the label for each class and the testing list location ("DATA_test.csv").
+```
+if args.task == 'dummy_mtl_concat':
+    args.n_classes=2
+    dataset = Generic_MIL_MTL_Dataset(csv_path = 'LIST/DATA_test.csv',
+                            data_dir= os.path.join(args.data_root_dir,'pt_files'),
+                            shuffle = False, 
+                            print_info = True,
+                            label_dicts = [{'neg':0, 'pos':1}],
+                            label_cols = ['label'],
+                            patient_strat= False)
+```
+To generate the prediction outcome of the MAMILE model, containing K base models:
+```
+python inference.py  --models_exp_code MAMILE_CTFE --save_exp_code MAMILE_CTFE_prediction --results_dir MODELS --data_root_dir DATA_FEATURES --top_fold K 
 
-To generate the prediction outcome of the ETMIL model, containing K base models:
 ```
-python ensemble_inf.py --stage='test' --config='Config/TMIL.yaml'  --gpus=0 --top_fold=K
+On the other hand, to generate the prediction outcome of the MAMIL model, containing one single base models:
 ```
-On the other hand, to generate the prediction outcome of the TMIL model, containing one single base models:
+python inference.py  --models_exp_code MAMILE_CTFE --save_exp_code MAMILE_CTFE_prediction --results_dir MODELS --data_root_dir DATA_FEATURES 
 ```
-python ensemble_inf.py --stage='test' --config='Config/TMIL.yaml'  --gpus=0 --top_fold=1
-```
-
-To setup the ETMIL model for diffierent tasks: 
-1. Open the Config file ./Config/TMIL.yaml
-2. Change the log_path in Config/TMIL.yaml to the correlated model path
-   
-(e.g. For prediction of the cancer subtype in CRC: please set the parameter "log_path" in Config/TMIL.yaml as "./log/TCGA_CRC/CRC_subtype/ETMIL_SSLViT/")
-
-The model of each task has been stored in the zip file with the following file structure: 
-```
-log/
-├── TCGA_CRC/
-│   ├── CRC_subtype
-│   │   └── ETMIL_SSLViT
-│   │
-│   ├── Mucinous_TMB_status 
-│   │   └── ETMIL_SSLViT
-│   │
-│   └── Non-mucinous_TMB_status
-│       └── ETMIL_SSLViT
-│
-└── TCGA_EC/
-    ├── EC_subtype
-    │   └── ETMIL_SSLViT
-    │
-    ├── Aggressive_TMB_status
-    │   └── ETMIL_SSLViT
-    │
-    └── Non-aggressive_TMB_status
-        └── ETMIL_SSLViT      
-```
-
 
 ## Training
 #### Preparing Training Splits
-
+To create a splits for training and validation set from the training list automatically. The default proportion for the training: validation splits used in this study is 9:1. Do the stratified sampling by open the create_splits.py, and change this related code with the directory of the training csv, the number of classess and the labels we want to investigates.
+```
+if args.task == 'dummy_mtl_concat':
+    args.n_classes=2
+    dataset = Generic_WSI_MTL_Dataset(csv_path = 'LIST/DATA_train.csv',
+                            shuffle = False, 
+                            seed = args.seed, 
+                            print_info = True,
+                            label_dicts = [{'neg':0, 'pos':1}],
+                            label_cols = ['label'],
+                            patient_strat= False)
+```
 To create a N fold for training and validation set from the training list. The default proportion for the training:validation splits used in this study is 9:1. 
 ```
-dataset_csv/
-├── fold0.csv
-├── fold1.csv
+SPLIT/
+├── splits_0.csv
+├── splits_1.csv
 │       ⋮
-└── foldN.csv
+└── splits_N.csv
+```
+In the terminal run:
+```
+python create_splits.py --split_dir SPLIT  --k N
 ```
 
 #### Training
+Open the "main.py" and and change this related code with the directory of the training csv, the number of classess and the labels we want to investigates.
+```
+if args.task == 'dummy_mtl_concat':
+    args.n_classes=2
+    dataset = Generic_MIL_MTL_Dataset(csv_path ='LIST/DATA_train.csv',
+                            data_dir= os.path.join(args.data_root_dir,'pt_files'),
+                            shuffle = False, 
+                            seed = args.seed, 
+                            print_info = True,
+                            label_dicts = [{'neg':0, 'pos':1}],
+                            label_cols = ['label'],
+                            patient_strat= False)
+```
+Run this code in the terminal to train N folds:
+```
+python main.py --data_root_dir DATA_FEATURES --results_dir MODELS --split_dir SPLIT --exp_code MAMILE --k N
 
-Run this code in the terminal to training N fold:
-```
-for((FOLD=0;FOLD<N;FOLD++)); do python train.py --stage='train' --config='Config/TMIL.yaml' --gpus=0 --fold $FOLD ; done
-```
-
-Run this code in the terminal to training one single fold:
-```
-python train.py --stage='train' --config='Config/TMIL.yaml' --gpus=0 --fold=0
 ```
 
 
