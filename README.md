@@ -139,9 +139,9 @@ To generate the prediction outcome of the MAMILE model, containing K base models
 python inference.py  --models_exp_code MAMILE_CTFE --save_exp_code MAMILE_CTFE_prediction --results_dir MODELS --data_root_dir DATA_FEATURES --top_fold K 
 
 ```
-On the other hand, to generate the prediction outcome of the MAMIL model, containing one single base models:
+On the other hand, to generate the prediction outcome of the MAMIL_CTFE model, containing one single base models:
 ```
-python inference.py  --models_exp_code MAMILE_CTFE --save_exp_code MAMILE_CTFE_prediction --results_dir MODELS --data_root_dir DATA_FEATURES 
+python inference.py  --models_exp_code MAMILE_CTFE --save_exp_code MAMIL_CTFE_prediction --results_dir MODELS --data_root_dir DATA_FEATURES 
 ```
 
 ## Training
