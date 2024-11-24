@@ -85,7 +85,7 @@ Request access to the UNI model weights from the Huggingface model page at: <htt
 
 In the terminal run:
 ```
-CUDA_VISIBLE_DEVICES=0,1 python extract_features.py --data_h5_dir DATA_PATCHES --data_slide_dir DATA --csv_path DATA_PATCHES/process_list_autogen.csv --feat_dir DATA_FEATURES --batch_size 512 --slide_ext .ndpi
+CUDA_VISIBLE_DEVICES=0,1 python extract_features.py --data_h5_dir DATA_PATCHES --data_slide_dir DATA --csv_path DATA_PATCHES/process_list_autogen.csv --feat_dir DATA_FEATURES --batch_size 128 --slide_ext .ndpi
 
 ```
 example features results:
@@ -105,7 +105,7 @@ DATA_FEATURES/
 ```
 Add data augmentation:
 ```
-CUDA_VISIBLE_DEVICES=0,1 python extract_features.py --data_h5_dir DATA_PATCHES --data_slide_dir DATA --csv_path DATA_PATCHES/process_list_autogen.csv --feat_dir DATA_FEATURES --batch_size 512 --slide_ext .ndpi --data_augmentation
+CUDA_VISIBLE_DEVICES=0,1 python extract_features.py --data_h5_dir DATA_PATCHES --data_slide_dir DATA --csv_path DATA_PATCHES/process_list_autogen.csv --feat_dir DATA_FEATURES --batch_size 128 --slide_ext .ndpi --data_augmentation
 
 ```
 #### 3. Training and Testing List
@@ -118,7 +118,6 @@ example of the csv files:
 | slide_2  | slide_2  | neg      |
 |  ...            | ...            | ...        | 
 | slide_n  |slide_n   | pos        |   
-
 
 
 #### 4. Inference 
