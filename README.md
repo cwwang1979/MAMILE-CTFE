@@ -13,25 +13,6 @@
 #### Download
 Execution file, configuration file, and models are download from the [zip](https://drive.google.com/open?id=1vsm1X9isbogaVBLF6R0g7fKgHNjVI14Y&usp=drive_copy) file.  (For reviewers, " ???" is the password to decompress the file.)
 
-## Steps
-#### 1.Installation
-
-Please refer to the following instructions.
-```
-# create and activate the conda environment
-conda create -n tmil python=3.7 -y
-conda activate tmil
-
-# install pytorch
-## pip install
-pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
-## conda install
-conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=11.0 -c pytorch
-
-# install related package
-pip install -r requirements.txt
-```
-
 #### 1. Tissue Segmentation and Patching
 
 Place the whole slide image in ./DATA
@@ -133,14 +114,14 @@ if args.task == 'dummy_mtl_concat':
                             label_cols = ['label'],
                             patient_strat= False)
 ```
-To generate the prediction outcome of the MAMILE model, containing K base models:
+To generate the prediction outcome of the MAMILE_CTFE_xxx model, containing K base models:
 ```
-python inference.py  --models_exp_code MAMILE_CTFE --save_exp_code MAMILE_CTFE_prediction --results_dir MODELS --data_root_dir DATA_FEATURES --top_fold K 
+python inference.py  --models_exp_code MAMILE_CTFE_xxx --save_exp_code MAMILE_CTFE_xxx_prediction --results_dir MODELS --data_root_dir DATA_FEATURES --top_fold K 
 
 ```
 On the other hand, to generate the prediction outcome of the MAMIL_CTFE model, containing one single base models:
 ```
-python inference.py  --models_exp_code MAMILE_CTFE --save_exp_code MAMIL_CTFE_prediction --results_dir MODELS --data_root_dir DATA_FEATURES 
+python inference.py  --models_exp_code MAMILE_CTFE_xxx --save_exp_code MAMIL_CTFE_xxx_prediction --results_dir MODELS --data_root_dir DATA_FEATURES 
 ```
 
 ## Training
@@ -186,7 +167,7 @@ if args.task == 'dummy_mtl_concat':
 ```
 Run this code in the terminal to train N folds:
 ```
-python main.py --data_root_dir DATA_FEATURES --results_dir MODELS --split_dir SPLIT --exp_code MAMILE --k N
+python main.py --data_root_dir DATA_FEATURES --results_dir MODELS --split_dir SPLIT --exp_code MAMILE_CTFE_xxx --k N
 
 ```
 
