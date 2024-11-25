@@ -11,7 +11,7 @@
 - Python (3.7.16), h5py (3.8.0), matplotlib (3.5.3), numpy (1.21.6), opencv-python (4.8.1.78), openslide-python (1.2.0), pandas (1.3.5), pillow (9.5.0), PyTorch (1.13.1+cu117), scikit-learn (1.0.2), scipy (1.7.3), tensorflow (1.14.0), tensorboardx (2.6.2.2), torchvision (0.14.1), pixman(0.38.0), huggingface-hub(0.16.4).
 
 #### Download
-Execution file, configuration file, and models are download from the [zip](https://drive.google.com/open?id=1OFqOGJHMGAADU1liEu1Mbw3gejBn7lM6&usp=drive_copy) file.  (For reviewers, "cwlab913_MAMILE_CTFE" is the password to decompress the file.)
+Execution file, configuration file, and models are download from the [zip](https://drive.google.com/open?id=1QP7DdvZrKzw-4QhGBYBdDYWRzVzhBkfF&usp=drive_copy) file.  (For reviewers, "cwlab913_MAMILE_CTFE" is the password to decompress the file.)
 
 #### 1. Tissue Segmentation and Patching
 
@@ -63,6 +63,11 @@ DATA_PATCHES/
 #### 2. Feature Extraction
 
 Request access to the UNI model weights from the Huggingface model page at: <https://huggingface.co/mahmoodlab/UNI>
+
+```
+if __name__ == '__main__':
+	login('')
+```
 
 In the terminal run:
 ```
