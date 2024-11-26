@@ -1,7 +1,7 @@
 # MAMILE-CTFE
 ## Associated Publications
 
-Deep learning-based malignancy detection of pleural effusion and ascites on cytology smear and cell block whole slide images (Currently under submission)
+(Currently under submission) Deep learning-based malignancy detection of pleural effusion and ascites on cytology smear and cell block whole slide images 
 
 ## Setup
 
@@ -15,7 +15,7 @@ Deep learning-based malignancy detection of pleural effusion and ascites on cyto
 - Python (3.7.16), h5py (3.8.0), matplotlib (3.5.3), numpy (1.21.6), opencv-python (4.8.1.78), openslide-python (1.2.0), pandas (1.3.5), pillow (9.5.0), PyTorch (1.13.1+cu117), scikit-learn (1.0.2), scipy (1.7.3), tensorflow (1.14.0), tensorboardx (2.6.2.2), torchvision (0.14.1), pixman(0.38.0), huggingface-hub(0.16.4).
 
 #### Download
-Execution file, configuration file, and models are download from the [zip](https://drive.google.com/open?id=1uCWloGoAtCr4CQ3EQHSVd6xvjRKfKul5&usp=drive_copy) file.  (For reviewers, "cwlab913-MAMILE-CTFE" is the password to decompress the file.)
+Execution file, configuration file, and models are download from the [zip](https://drive.google.com/open?id=1uCWloGoAtCr4CQ3EQHSVd6xvjRKfKul5&usp=drive_copy) file.  (Reviewers should use the password provided in the paper's Code Availability section to decompress the file.)
 
 #### 1. Tissue Segmentation and Patching
 
@@ -78,6 +78,11 @@ In the terminal run:
 CUDA_VISIBLE_DEVICES=0,1 python extract_features.py --data_h5_dir DATA_PATCHES --data_slide_dir DATA --csv_path DATA_PATCHES/process_list_autogen.csv --feat_dir DATA_FEATURES --batch_size 128 --slide_ext .ndpi
 
 ```
+Add data augmentation:
+```
+CUDA_VISIBLE_DEVICES=0,1 python extract_features.py --data_h5_dir DATA_PATCHES --data_slide_dir DATA --csv_path DATA_PATCHES/process_list_autogen.csv --feat_dir DATA_FEATURES --batch_size 128 --slide_ext .ndpi --data_augmentation
+
+```
 example features results:
 ```
 DATA_FEATURES/
@@ -93,11 +98,7 @@ DATA_FEATURES/
     │       ⋮
     └── slide_n.pt
 ```
-Add data augmentation:
-```
-CUDA_VISIBLE_DEVICES=0,1 python extract_features.py --data_h5_dir DATA_PATCHES --data_slide_dir DATA --csv_path DATA_PATCHES/process_list_autogen.csv --feat_dir DATA_FEATURES --batch_size 128 --slide_ext .ndpi --data_augmentation
 
-```
 #### 3. Training and Testing List
 Prepare the training, validation  and the testing list containing the labels of the files and put it into ./LIST folder. (The csv sample "DATA_train.csv" and  "DATA_test.csv")
 
