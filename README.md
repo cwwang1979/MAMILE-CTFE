@@ -124,7 +124,7 @@ if args.task == 'dummy_mtl_concat':
                             label_cols = ['label'],
                             patient_strat= False)
 ```
-For inference Cancer Origin Identification models, change n_classes and label_dicts.
+For inference Cancer Origin Identification models.
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=6
