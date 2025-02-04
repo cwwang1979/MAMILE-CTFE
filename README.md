@@ -5,7 +5,7 @@
 
 ## Setup
 
-#### Requirerements
+#### Requirements
 - Linux (Tested on Ubuntu 18.04)
 - NVIDIA GPU (Tested on a single NVIDIA GeForce GTX 1080 Ti)
 - RAM >= 16 GB
@@ -15,7 +15,7 @@
 - Python (3.7.16), h5py (3.8.0), matplotlib (3.5.3), numpy (1.21.6), opencv-python (4.8.1.78), openslide-python (1.2.0), pandas (1.3.5), pillow (9.5.0), PyTorch (1.13.1+cu117), scikit-learn (1.0.2), scipy (1.7.3), tensorflow (1.14.0), tensorboardx (2.6.2.2), torchvision (0.14.1), pixman(0.38.0), huggingface-hub(0.16.4).
 
 #### Download
-Execution file, configuration file, and models are download from the [zip](https://drive.google.com/open?id=17rosPXt3LTzi7LaU6GLJ_0f-y0K45MTk&usp=drive_copy) file.  (For reviewers, please use the password provided in the Code Availability section of the associated manuscript to decompress the file.)
+Execution file, configuration file, and models are downloaded from the [zip](https://drive.google.com/open?id=17rosPXt3LTzi7LaU6GLJ_0f-y0K45MTk&usp=drive_copy) file.  (For reviewers, please use the password provided in the Code Availability section of the associated manuscript to decompress the file.)
 
 #### 1. Tissue Segmentation and Patching
 
@@ -40,7 +40,7 @@ python create_patches.py --source DATA --save_dir DATA_PATCHES --patch_size 224 
 
 ```
 
-The result will be produced in folder named 'DATA_PATCHES/', which includes the masks and the sticthes in .jpg and the coordinates of the patches will stored into HD5F files (.h5) like the following structure.
+The result will be produced in a folder named 'DATA_PATCHES/', which includes the masks and the stitches in .jpg and the coordinates of the patches will stored in HD5F files (.h5) like the following structure.
 ```
 DATA_PATCHES/
 ├── masks/
@@ -100,9 +100,9 @@ DATA_FEATURES/
 ```
 
 #### 3. Training and Testing List
-Prepare the training, validation  and the testing list containing the labels of the files and put it into ./LIST folder. (The csv sample "DATA_train.csv" and  "DATA_test.csv")
+Prepare the training, validation, and testing list containing the labels of the files and put it into the ./LIST folder. (The CSV sample "DATA_train.csv" and  "DATA_test.csv")
 
-example of the csv files:
+example of the CSV files:
 | slide_id    | case_id  | label |
 | :---          | :---           |  :---    |
 | slide_1  |slide_1 |  Malignancy      |
@@ -112,7 +112,7 @@ example of the csv files:
 
 
 #### 4. Inference 
-For inference malignancy detection models, open the "inference.py" and set the number of the classes, the label for each class and the testing list location ("DATA_test.csv").
+For inference malignancy detection models, open the "inference.py" and set the number of the classes, the label for each class, and the testing list location ("DATA_test.csv").
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=2
@@ -141,14 +141,15 @@ To generate the prediction outcome of the MAMILE_CTFE_xxx model, containing K ba
 python inference.py  --models_exp_code MAMILE_CTFE_xxx --save_exp_code MAMILE_CTFE_xxx_prediction --results_dir MODELS --data_root_dir DATA_FEATURES --top_fold K 
 
 ```
-On the other hand, to generate the prediction outcome of the MAMIL_CTFE model, containing one single base models:
+On the other hand, to generate the prediction outcome of the MAMIL_CTFE model, containing one single base model:
 ```
 python inference.py  --models_exp_code MAMILE_CTFE_xxx --save_exp_code MAMIL_CTFE_xxx_prediction --results_dir MODELS --data_root_dir DATA_FEATURES 
 ```
 
 ## Training
 #### Preparing Training Splits
-To create a splits for training and validation set from the training list automatically. The default proportion for the training: validation splits used in this study is 9:1. Do the stratified sampling by open the create_splits.py, and change this related code with the directory of the training csv, the number of classess and the labels we want to investigates.
+To create splits for training and validation set from the training list automatically. The default proportion for the training: validation splits used in this study is 9:1. Do the stratified sampling by opening the create_splits.py, and changing this related code with the directory of the training CSV, the number of classes, and the labels we want to investigate.
+Create a split for malignancy detection.
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=2
@@ -157,6 +158,18 @@ if args.task == 'dummy_mtl_concat':
                             seed = args.seed, 
                             print_info = True,
                             label_dicts = [{'neg':0, 'pos':1}],
+                            label_cols = ['label'],
+                            patient_strat= False)
+```
+Create a split for Cancer Origin Identification.
+```
+if args.task == 'dummy_mtl_concat':
+    args.n_classes=6
+    dataset = Generic_MIL_MTL_Dataset(csv_path = 'LIST/DATA_test.csv',
+                            data_dir= os.path.join(args.data_root_dir,'pt_files'),
+                            shuffle = False, 
+                            print_info = True,
+                            label_dicts = [{'Breast':0, 'Bronchopulmonary':1, 'Pancrease':2, 'GYN Original':3, 'GI Tract':4, 'Others':5}],
                             label_cols = ['label'],
                             patient_strat= False)
 ```
@@ -174,7 +187,7 @@ python create_splits.py --split_dir SPLIT  --k N
 ```
 
 #### Training
-Open the "main.py" and and change this related code with the directory of the training csv, the number of classess and the labels we want to investigates.
+Open the "main.py" and change this related code with the directory of the training CSV, the number of classes, and the labels we want to investigate.
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=2
