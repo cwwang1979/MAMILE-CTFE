@@ -112,7 +112,7 @@ example of the CSV files:
 
 
 #### 4. Inference 
-For inference malignancy detection models, open the "inference.py" and set the number of the classes, the label for each class, and the testing list location ("DATA_test.csv").
+For running inference with malignancy detection models, open the "inference.py" and set the number of the classes, the label for each class, and the testing list location ("DATA_test.csv").
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=2
@@ -124,7 +124,7 @@ if args.task == 'dummy_mtl_concat':
                             label_cols = ['label'],
                             patient_strat= False)
 ```
-For inference Cancer Origin Identification models.
+The following setting is for running inference ｗith cancer origin identification models.
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=6
@@ -148,7 +148,7 @@ python inference.py  --models_exp_code MAMILE_CTFE_xxx --save_exp_code MAMIL_CTF
 
 ## Training
 #### Preparing Training Splits
-To create splits for training and validation set from the training list automatically. The default proportion for the training: validation splits used in this study is 9:1. Do the stratified sampling by opening the create_splits.py, and changing this related code with the directory of the training CSV, the number of classes, and the labels we want to investigate, The below setting is for malignancy detection.
+To automatically create training and validation splits from the training list, the default proportion for the training: validation splits used in this study is 9:1. Do the stratified sampling by opening the create_splits.py, and changing this related code with the directory of the training CSV, the number of classes, and the labels we want to investigate, the following setting is for malignancy detection.
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=2
@@ -160,7 +160,7 @@ if args.task == 'dummy_mtl_concat':
                             label_cols = ['label'],
                             patient_strat= False)
 ```
-Create a split for cancer origin identification.
+The following setting is for generating a data split for cancer origin identification.
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=6
@@ -172,7 +172,7 @@ if args.task == 'dummy_mtl_concat':
                             label_cols = ['label'],
                             patient_strat= False)
 ```
-To create a N fold for training and validation set from the training list. The default proportion for the training:validation splits used in this study is 9:1. 
+To create an N-fold split for the training and validation sets from the training list, the default training-to-validation ratio used in this study is 9:1.
 ```
 SPLIT/
 ├── splits_0.csv
@@ -186,7 +186,7 @@ python create_splits.py --split_dir SPLIT  --k N
 ```
 
 #### Training
-Open the "main.py" and change this related code with the directory of the training CSV, the number of classes, and the labels we want to investigate, The below setting is for malignancy detection.
+Open the "main.py" and change this related code with the directory of the training CSV, the number of classes, and the labels we want to investigate, The following configuration is intended for training malignancy detection models.
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=2
@@ -199,7 +199,7 @@ if args.task == 'dummy_mtl_concat':
                             label_cols = ['label'],
                             patient_strat= False)
 ```
-Training models for cancer origin identification.
+The following configuration is for training models of cancer origin identification.
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=6
