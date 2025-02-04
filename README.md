@@ -113,10 +113,10 @@ Example CSV files for malignancy detection:
 Example CSV files for cancer origin identification:
 | slide_id    | case_id  | label |
 | :---          | :---           |  :---    |
-| slide_1  |slide_1 |  Malignancy      |
-| slide_2  | slide_2  | Benign      |
+| slide_1  |slide_1 |  Breast      |
+| slide_2  | slide_2  | GI Tract      |
 |  ...            | ...            | ...        | 
-| slide_n  |slide_n   | Malignancy        |   
+| slide_n  |slide_n   | Pancrease        |   
 
 
 #### 4. Inference 
