@@ -105,10 +105,10 @@ Prepare the training, validation  and the testing list containing the labels of 
 example of the csv files:
 | slide_id    | case_id  | label |
 | :---          | :---           |  :---    |
-| slide_1  |slide_1 |  pos      |
-| slide_2  | slide_2  | neg      |
+| slide_1  |slide_1 |  Malignancy      |
+| slide_2  | slide_2  | Benign      |
 |  ...            | ...            | ...        | 
-| slide_n  |slide_n   | pos        |   
+| slide_n  |slide_n   | Malignancy        |   
 
 
 #### 4. Inference 
@@ -120,7 +120,7 @@ if args.task == 'dummy_mtl_concat':
                             data_dir= os.path.join(args.data_root_dir,'pt_files'),
                             shuffle = False, 
                             print_info = True,
-                            label_dicts = [{'neg':0, 'pos':1}],
+                            label_dicts = [{'Benign':0, 'Malignancy':1}],
                             label_cols = ['label'],
                             patient_strat= False)
 ```
