@@ -102,7 +102,15 @@ DATA_FEATURES/
 #### 3. Training and Testing List
 Prepare the training, validation, and testing list containing the labels of the files and put it into the ./LIST folder. (The CSV sample "DATA_train.csv" and  "DATA_test.csv")
 
-example of the CSV files:
+example CSV files for malignancy detection:
+| slide_id    | case_id  | label |
+| :---          | :---           |  :---    |
+| slide_1  |slide_1 |  Malignancy      |
+| slide_2  | slide_2  | Benign      |
+|  ...            | ...            | ...        | 
+| slide_n  |slide_n   | Malignancy        |   
+
+example CSV files for cancer origin identification:
 | slide_id    | case_id  | label |
 | :---          | :---           |  :---    |
 | slide_1  |slide_1 |  Malignancy      |
