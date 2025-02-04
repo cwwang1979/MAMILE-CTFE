@@ -112,7 +112,7 @@ example of the csv files:
 
 
 #### 4. Inference 
-For inference, open the "inference.py" and set the number of the classes, the label for each class and the testing list location ("DATA_test.csv").
+For inference malignancy detection models, open the "inference.py" and set the number of the classes, the label for each class and the testing list location ("DATA_test.csv").
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=2
@@ -121,6 +121,18 @@ if args.task == 'dummy_mtl_concat':
                             shuffle = False, 
                             print_info = True,
                             label_dicts = [{'neg':0, 'pos':1}],
+                            label_cols = ['label'],
+                            patient_strat= False)
+```
+For inference Cancer Origin Identification models, change n_classes and label_dicts.
+```
+if args.task == 'dummy_mtl_concat':
+    args.n_classes=6
+    dataset = Generic_MIL_MTL_Dataset(csv_path = 'LIST/DATA_test.csv',
+                            data_dir= os.path.join(args.data_root_dir,'pt_files'),
+                            shuffle = False, 
+                            print_info = True,
+                            label_dicts = [{'Breast':0, 'Bronchopulmonary':1, 'Pancrease':2, 'GYN Original':3, 'GI Tract':4, 'Others':5}],
                             label_cols = ['label'],
                             patient_strat= False)
 ```
