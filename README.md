@@ -1,7 +1,7 @@
 # MAMILE-CTFE
 ## Associated Publications
 
-(Currently under submission) Deep learning-based malignancy detection of pleural effusion and ascites on cytology smear and cell block whole slide images 
+(Currently under submission) Data efficient deep learning for malignancy detection in pleural effusion and ascites using cytology smear or cell block whole slide images, with cancer origin identification 
 
 ## Setup
 
