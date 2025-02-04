@@ -148,8 +148,7 @@ python inference.py  --models_exp_code MAMILE_CTFE_xxx --save_exp_code MAMIL_CTF
 
 ## Training
 #### Preparing Training Splits
-To create splits for training and validation set from the training list automatically. The default proportion for the training: validation splits used in this study is 9:1. Do the stratified sampling by opening the create_splits.py, and changing this related code with the directory of the training CSV, the number of classes, and the labels we want to investigate.
-Create a split for malignancy detection.
+To create splits for training and validation set from the training list automatically. The default proportion for the training: validation splits used in this study is 9:1. Do the stratified sampling by opening the create_splits.py, and changing this related code with the directory of the training CSV, the number of classes, and the labels we want to investigate, The below setting is for malignancy detection.
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=2
@@ -161,13 +160,13 @@ if args.task == 'dummy_mtl_concat':
                             label_cols = ['label'],
                             patient_strat= False)
 ```
-Create a split for Cancer Origin Identification.
+Create a split for cancer origin identification.
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=6
-    dataset = Generic_MIL_MTL_Dataset(csv_path = 'LIST/DATA_test.csv',
-                            data_dir= os.path.join(args.data_root_dir,'pt_files'),
+    dataset = Generic_WSI_MTL_Dataset(csv_path = 'LIST/DATA_train.csv',
                             shuffle = False, 
+                            seed = args.seed, 
                             print_info = True,
                             label_dicts = [{'Breast':0, 'Bronchopulmonary':1, 'Pancrease':2, 'GYN Original':3, 'GI Tract':4, 'Others':5}],
                             label_cols = ['label'],
@@ -187,7 +186,7 @@ python create_splits.py --split_dir SPLIT  --k N
 ```
 
 #### Training
-Open the "main.py" and change this related code with the directory of the training CSV, the number of classes, and the labels we want to investigate.
+Open the "main.py" and change this related code with the directory of the training CSV, the number of classes, and the labels we want to investigate, The below setting is for malignancy detection.
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=2
@@ -197,6 +196,19 @@ if args.task == 'dummy_mtl_concat':
                             seed = args.seed, 
                             print_info = True,
                             label_dicts = [{'neg':0, 'pos':1}],
+                            label_cols = ['label'],
+                            patient_strat= False)
+```
+Training models for cancer origin identification.
+```
+if args.task == 'dummy_mtl_concat':
+    args.n_classes=6
+    dataset = Generic_MIL_MTL_Dataset(csv_path ='LIST/DATA_train.csv',
+                            data_dir= os.path.join(args.data_root_dir,'pt_files'),
+                            shuffle = False, 
+                            seed = args.seed, 
+                            print_info = True,
+                            label_dicts = [{'Breast':0, 'Bronchopulmonary':1, 'Pancrease':2, 'GYN Original':3, 'GI Tract':4, 'Others':5}],
                             label_cols = ['label'],
                             patient_strat= False)
 ```
