@@ -104,7 +104,7 @@ Prepare the training, validation, and testing list containing the labels of the 
 
 Example CSV files for malignancy detection:
 | slide_id    | case_id  | label |
-| :---          | :---           |  :---    |
+| :---:         | :---:           |  :---:   |
 | slide_1  |slide_1 |  Malignancy      |
 | slide_2  | slide_2  | Benign      |
 |  ...            | ...            | ...        | 
@@ -112,7 +112,7 @@ Example CSV files for malignancy detection:
 
 Example CSV files for cancer origin identification:
 | slide_id    | case_id   | label     | sex  |
-| :---        | :---      | :---      | :--- |
+| :---:        | :---:      | :---:      | :---: |
 | slide_1     | slide_1   | Breast    | F    |
 | slide_2     | slide_2   | GI_Tract  | M    |
 |  ...        | ...       | ...       | ...  |
