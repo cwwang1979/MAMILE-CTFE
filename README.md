@@ -111,12 +111,12 @@ Example CSV files for malignancy detection:
 | slide_n  |slide_n   | Malignancy        |   
 
 Example CSV files for cancer origin identification:
-| slide_id    | case_id  | label |
-| :---          | :---           |  :---    |
-| slide_1  |slide_1 |  Breast      |
-| slide_2  | slide_2  | GI Tract      |
-|  ...            | ...            | ...        | 
-| slide_n  |slide_n   | Pancrease        |   
+| slide_id    | case_id  | label | sex |
+| :---          | :---           | M | :---    |
+| slide_1  |slide_1 |  Breast      | F  |
+| slide_2  | slide_2  | GI Tract      | F   |
+|  ...            | ...            | ... | ...       | 
+| slide_n  |slide_n   | Pancrease        |  M  |  
 
 
 #### 4. Inference 
@@ -140,8 +140,8 @@ if args.task == 'dummy_mtl_concat':
                             data_dir= os.path.join(args.data_root_dir,'pt_files'),
                             shuffle = False, 
                             print_info = True,
-                            label_dicts = [{'Breast':0, 'Bronchopulmonary':1, 'Pancrease':2, 'GYN Original':3, 'GI Tract':4, 'Others':5}],
-                            label_cols = ['label'],
+                            label_dicts = [{'Breast':0, 'Bronchopulmonary':1,'Pancrease':2,'GYN_Original':3,'GI_Tract':4,'Others':5}, {'F':1, 'M':0}],
+                            label_cols = ['label', 'sex'],
                             patient_strat= False)
 ```
 To generate the prediction outcome of the MAMILE_CTFE_xxx model, containing K base models:
@@ -176,8 +176,8 @@ if args.task == 'dummy_mtl_concat':
                             shuffle = False, 
                             seed = args.seed, 
                             print_info = True,
-                            label_dicts = [{'Breast':0, 'Bronchopulmonary':1, 'Pancrease':2, 'GYN Original':3, 'GI Tract':4, 'Others':5}],
-                            label_cols = ['label'],
+                            label_dicts = [{'Breast':0, 'Bronchopulmonary':1,'Pancrease':2,'GYN_Original':3,'GI_Tract':4,'Others':5}, {'F':1, 'M':0}],
+                            label_cols = ['label', 'sex'],
                             patient_strat= False)
 ```
 To create an N-fold split for the training and validation sets from the training list, the default training-to-validation ratio used in this study is 9:1.
@@ -216,13 +216,13 @@ if args.task == 'dummy_mtl_concat':
                             shuffle = False, 
                             seed = args.seed, 
                             print_info = True,
-                            label_dicts = [{'Breast':0, 'Bronchopulmonary':1, 'Pancrease':2, 'GYN Original':3, 'GI Tract':4, 'Others':5}],
-                            label_cols = ['label'],
+                            label_dicts = [{'Breast':0, 'Bronchopulmonary':1,'Pancrease':2,'GYN_Original':3,'GI_Tract':4,'Others':5}, {'F':1, 'M':0}],
+                            label_cols = ['label', 'sex'],
                             patient_strat= False)
 ```
 Run this code in the terminal to train N folds:
 ```
-python main.py --data_root_dir DATA_FEATURES --results_dir MODELS --split_dir SPLIT --exp_code MAMILE_CTFE_xxx --k N
+python main.py --data_root_dir DATA_FEATURES --results_dir MODELS --save_dir SPLIT --exp_code MAMILE_CTFE_xxx --k N
 
 ```
 
