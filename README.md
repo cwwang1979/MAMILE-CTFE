@@ -190,7 +190,7 @@ SPLIT/
 ```
 In the terminal run:
 ```
-python create_splits.py --split_dir SPLIT  --k N
+python create_splits.py --save_dir SPLIT  --k N
 ```
 
 #### Training
@@ -222,7 +222,7 @@ if args.task == 'dummy_mtl_concat':
 ```
 Run this code in the terminal to train N folds:
 ```
-python main.py --data_root_dir DATA_FEATURES --results_dir MODELS --save_dir SPLIT --exp_code MAMILE_CTFE_xxx --k N
+python main.py --data_root_dir DATA_FEATURES --results_dir MODELS --split_dir SPLIT --exp_code MAMILE_CTFE_xxx --k N
 
 ```
 
