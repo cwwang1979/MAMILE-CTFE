@@ -1,7 +1,7 @@
 # MAMILE-CTFE
 ## Associated Publications
 
-Wang et al. (Under submission) Data efficient deep learning for malignancy detection in pleural effusion and ascites using cytology smear or cell block whole slide images, with cancer origin identification 
+Wang et al. (Under submission) Data efficient deep learning for malignancy detection using cytology smear or cell block whole slide images, with cancer origin identification
 
 ## Setup
 
