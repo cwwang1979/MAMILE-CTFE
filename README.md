@@ -1,4 +1,4 @@
-# MAMILE-CTFE
+# MAMILE-UNI
 ## Associated Publications
 
 Wang et al. (Under submission) Data efficient deep learning for malignancy detection using cytology smear or cell block whole slide images, with cancer origin identification
@@ -144,14 +144,14 @@ if args.task == 'dummy_mtl_concat':
                             label_cols = ['label', 'sex'],
                             patient_strat= False)
 ```
-To generate the prediction outcome of the MAMILE_CTFE_xxx model, containing K base models:
+To generate the prediction outcome of the MAMILE_UNI_xxx model, containing K base models:
 ```
-python inference.py  --models_exp_code MAMILE_CTFE_xxx --save_exp_code MAMILE_CTFE_xxx_prediction --results_dir MODELS --data_root_dir DATA_FEATURES --top_fold K 
+python inference.py  --models_exp_code MAMILE_UNI_xxx --save_exp_code MAMILE_UNI_xxx_prediction --results_dir MODELS --data_root_dir DATA_FEATURES --top_fold K 
 
 ```
-On the other hand, to generate the prediction outcome of the MAMIL_CTFE model, containing one single base model:
+On the other hand, to generate the prediction outcome of the MAMIL_UNI model, containing one single base model:
 ```
-python inference.py  --models_exp_code MAMILE_CTFE_xxx --save_exp_code MAMIL_CTFE_xxx_prediction --results_dir MODELS --data_root_dir DATA_FEATURES 
+python inference.py  --models_exp_code MAMILE_UNI_xxx --save_exp_code MAMIL_UNI_xxx_prediction --results_dir MODELS --data_root_dir DATA_FEATURES 
 ```
 
 ## Training
@@ -222,7 +222,7 @@ if args.task == 'dummy_mtl_concat':
 ```
 Run this code in the terminal to train N folds:
 ```
-python main.py --data_root_dir DATA_FEATURES --results_dir MODELS --split_dir SPLIT --exp_code MAMILE_CTFE_xxx --k N
+python main.py --data_root_dir DATA_FEATURES --results_dir MODELS --split_dir SPLIT --exp_code MAMILE_UNI_xxx --k N
 
 ```
 
