@@ -15,7 +15,7 @@ Wang et al. (Under submission) Data efficient deep learning for malignancy detec
 - Python (3.7.16), h5py (3.8.0), matplotlib (3.5.3), numpy (1.21.6), opencv-python (4.8.1.78), openslide-python (1.2.0), pandas (1.3.5), pillow (9.5.0), PyTorch (1.13.1+cu117), scikit-learn (1.0.2), scipy (1.7.3), tensorflow (1.14.0), tensorboardx (2.6.2.2), torchvision (0.14.1), pixman(0.38.0), huggingface-hub(0.16.4).
 
 #### Download
-For malignancy detection, the execution file, configuration file, and models are downloaded from the [zip](https://drive.google.com/open?id=1q8RuZNmzzx3PsK4dq8-4n_SgnD1jpJ82&usp=drive_copy) file. Meanwhile, files for cancer origin identification can be obtained from the [zip](https://drive.google.com/open?id=10aNaQxrZt5NV6RZTs8YTsNjiOKsoP4Pl&usp=drive_copy) file. (For reviewers, please use the password provided in the Code Availability section of the associated manuscript to decompress the file.)
+For malignancy detection, the execution file, configuration file, and models are downloaded from the [zip](https://drive.google.com/file/d/1FzKArAWXCdqiO_wzQf-uBF0EIwv6c5M8/view?usp=drive_link) file. Meanwhile, files for cancer origin identification can be obtained from the [zip](https://drive.google.com/file/d/16TGyqmGKrYg6HRQKA4Bk_bhmptIsND1K/view?usp=drive_link) file. (For reviewers, please use the password provided in the Code Availability section of the associated manuscript to decompress the file.)
 
 #### 1. Tissue Segmentation and Patching
 
